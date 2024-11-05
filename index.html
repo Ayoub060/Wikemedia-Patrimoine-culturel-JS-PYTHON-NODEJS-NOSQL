@@ -1,22 +1,55 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Titre de la Page</title>
-    <link rel="stylesheet" href="style.css"> <!-- Lien vers une feuille de style CSS (optionnel) -->
+    <title>Reminder collection</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { 
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        } 
+        h1 {
+            margin-bottom: 10px;
+        }
+        .search-button {
+            background-color: #b97221;
+            color: white;
+        }
+        .search-button:hover {
+            background-color: #45a049;
+        }
+        footer {
+            margin-top: 20px;
+        }
+    </style>
 </head>
-<body> 
-    <header>
-        <h1>Bienvenue sur ma page</h1>
+<body>
+    <header class="bg-warning text-white text-center py-3">
+        <h1>Reminder Collection</h1>
     </header>
 
-    <main>
-        <p>Ceci est un paragraphe d'exemple pour commencer la page HTML.</p>
-    </main>
+    <div class="container mt-5">
+        <div class="d-flex justify-content-end mb-4">
+            <input type="text" class="form-control w-50 mr-2 search-box" placeholder="Search...">
+            <button class="btn search-button">Search</button>
+        </div>
 
-    <footer>
-        <p>© 2024 - Tous droits réservés.</p>
+        <main>
+            <p>This is an example using Bootstrap.</p>
+        </main>
+    </div>
+
+    <footer class="bg-dark text-white text-center py-3">
+        <p>&copy; 2024 Your Company</p>
     </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
-</html> 
+</html>
