@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reminder Collection</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <script hre></script>
 </head>
-
-    <body> 
-        <header class="header"> 
-           <div class="logo"> 
-            <img src="b.jpeg" alt="Logo"> 
+<body> 
+    <!-- Header -->
+    <header class="header"> 
+        <div class="logo"> 
+            <img src="./images/logo1.png" alt="Logo"> 
         </div> 
 
         <nav class="nav"> 
@@ -19,25 +20,99 @@
                 <li><a href="#">Ajouter un souvenir</a></li> 
                 <li><a href="#">Profile</a></li> 
                 <li><a href="#">Se Connecter</a></li>
-            </ul> </nav> 
+            </ul> 
+        </nav> 
             
-            <div class="search-container"> 
-                <input type="text" class="search-box" placeholder="Search..."> 
-                <button class="search-button">Search</button> 
-            </div> 
-        </header> 
-    </body>
-
-    <section id="about"> 
-        <img src="e.png" alt="Logo"> 
-        <img src="f.png" alt="Logo"> 
-        <img src="g.png" alt="Logo"> 
-        <h2>À propos</h2> 
-        <p>Bienvenue sur mon site web ! Ici, vous trouverez des informations sur divers sujets qui me passionnent. Je suis ravi de partager mes connaissances et mes expériences avec vous.</p> 
-    </section>
+        <div class="search-container">
+            <form action="{{ url_for('search') }}" method="POST" onsubmit="return validateInput()">
+               
+                <input type="text" name="query" id="search-input" placeholder="Rechercher..." maxlength="50" required>
+                <button type="button" id="voice-btn" onclick="startRecognition()">🎤</button>
+                <button type="submit" id="search-button">🔍</button>
+             
+            </form>
+        </div> 
+    </header> 
+   
+    <div class="caroussel-container">
+        <div class="slides">
+            <div class="slide">
+                <img src="./images/e.png" alt="Image 1">  
+            </div>
+            <div class="slide">
+                <img src="./images/f.png"   alt="Image 2"> 
+            </div>
+            <div class="slide">
+                <img src="./images/g.png"  alt="Image 3">
+            </div>
+        </div>
+        <button class="prev" onclick="moveSlide(-1)">&#10094;</button>
+        <button class="next" onclick="moveSlide(1)">&#10095;</button>
+    </div>
     
+    <h1>Bienvenue dans le premier Wikimedia dédié au patrimoine culturel domestique</h1>
+
+    <!-- Section Footer -->
+    <div class="section-footer">
+        <div class="paragraph">
+            Le projet Wikimedia sur le patrimoine culturel domestique vise à créer une plateforme collaborative en ligne dédiée à la préservation et à la valorisation des traditions culturelles propres à chaque foyer et communauté. Ce patrimoine domestique englobe les savoir-faire artisanaux, les recettes culinaires transmises de génération en génération, les objets de la vie quotidienne empreints d’histoire, ainsi que les rituels et coutumes qui façonnent l’identité des familles à travers le temps. Grâce à ce projet, chaque individu ou communauté pourra contribuer en partageant des récits, des photos, des vidéos ou des descriptions d'éléments culturels uniques. En rassemblant ces témoignages, cette encyclopédie numérique mettra en lumière la richesse et la diversité des traditions souvent négligées dans les initiatives de conservation culturelle à grande échelle.
+            <br><br>
+            Cette plateforme offrira une interface intuitive où les utilisateurs pourront non seulement documenter leur patrimoine, mais également explorer celui des autres à travers une base de données organisée par thèmes, régions ou périodes historiques.
+        </div>
+        <div class="video">
+            <iframe width="100%" height="345" src="https://www.youtube.com/embed/FwC-G8xy7no?controls=0"></iframe>
+        </div>
+    </div>
+    <h1>Découvrez notre actualité</h1>
+    <div class="news-container">
+        <div class="news-item">
+            <img src="./images/e.png" alt="Save the date">
+            <div class="news-content">
+                <h2>Venez rencontrer Wikimédia France à l’Open Source Experience</h2>
+                <div class="news-date">27 novembre 2024</div>
+                <p>
+                    Atelier Wikeys Venez rencontrer l'association Wikimédia France au village associatif de l’Open Source
+                    expérience qui se tiendra le mercredi 4 et jeudi 5 décembre au Palais des congrès de Paris de 9h à 18h
+                    au stand A10. Wikimédia France y sera présente aux côtés d’associations comme Mozilla France, Linux ou
+                    Libervia.
+                </p>
+                <a href="#">Lire la suite »</a>
+            </div>
+        </div>
+        <div class="news-item">
+            <img src="./images/f.png" alt="Conseil d'administration">
+            <div class="news-content">
+                <h2>Le nouveau conseil d’administration de Wikimédia France</h2>
+                <div class="news-date">23 novembre 2024</div>
+                <p>
+                    Samedi 16 novembre se tenait l’assemblée générale de l’association Wikimédia France. Un nouveau bureau a
+                    été élu et 5 membres ont rejoint le conseil d’administration (dont deux renouvellements et 3 nouvelles
+                    membres). Découvrez les nouveaux visages et parcours du conseil d’administration de Wikimédia France.
+                </p>
+                <a href="#">Lire la suite »</a>
+            </div>
+        </div>
+        <div class="news-item">
+            <img src="./images/g.png" alt="Marceline Desbordes-Valmore">
+            <div class="news-content">
+                <h2>Les petits enfants de Marceline Desbordes-Valmore enfin sur Wikisource</h2>
+                <div class="news-date">13 novembre 2024</div>
+                <p>
+                    "Le livre des petits enfants", de l’autrice lyonnaise Marceline Desbordes-Valmore, est à présent sur
+                    Wikisource en libre-accès. Une mise à disposition permise grâce à la collaboration entre l’association
+                    Diderot Le Deuxième texte et Les sans pagEs, la bibliothèque Diderot de Lyon, la Maison des Sciences de
+                    l’Homme de Dijon et la wikimédienne en résidence à l’Urfist.
+                </p>
+                <a href="#">Lire la suite »</a>
+            </div>
+        </div>
+    </div>
     <footer>
         <p>&copy; 2024 Your Company</p>
     </footer>
+    <script src="./javascript/script.js"></script>
 </body>
 </html>
+
+
+

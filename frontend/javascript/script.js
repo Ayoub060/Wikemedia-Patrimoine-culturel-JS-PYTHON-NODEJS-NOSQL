@@ -1,9 +1,26 @@
-// Afficher un message de bienvenue dans la console
-console.log("Bienvenue dans mon premier script JavaScript !");
+let currentIndex = 0;
 
-// Interagir avec un élément HTML après le chargement de la page
-document.addEventListener("DOMContentLoaded", function() {
-    // Sélectionner l'élément avec l'ID "demo"
-    const demoElement = document.getElementById("demo");
-    demoElement.textContent = "Ce texte a été modifié par JavaScript !";
-}); 
+function moveSlide(direction) {
+    const slides = document.querySelectorAll(".slide");
+    const totalSlides = slides.length;
+
+    currentIndex += direction;
+    if (currentIndex < 0) {
+        currentIndex = totalSlides - 1;
+    } else if (currentIndex >= totalSlides) {
+        currentIndex = 0;
+    }
+
+    updateCarousel();
+}
+
+function updateCarousel() {
+    const carousel = document.querySelector(".slides");
+    const slideWidth = document.querySelector(".slide").clientWidth;
+    carousel.style.transform = `translateX(-${currentIndex * slideWidth}px)`; 
+}
+
+setInterval(() => {
+    moveSlide(1);
+}, 5000); 
+    
