@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contributions</title>
+    <link rel="stylesheet" href="./css/contributions.css">
+</head>
+<body>
+    <!-- header -->
+    <header class="header"> 
+        <nav class="nav"> 
+            <div class="logo">
+                <a href="index.html">WikiCulture</a>
+            </div>
+            <ul> 
+                <li><a href="historiques.html">Historiques</a></li>
+                <li><a href="associatif.html">Associatif</a></li>
+                <li><a href="collections.html">Collections</a></li> 
+                <li><a href="contributions.html">Contributions</a></li>
+                <li><a href="contact.html">Contact</a></li>  
+            </ul> 
+        </nav> 
+        <div class="search-container">
+            <form action="{{ url_for('search') }}" method="POST" onsubmit="return validateInput()">
+               
+                <input type="text" name="query" id="search-input" placeholder="Rechercher..." maxlength="50" required>
+                <button type="button" id="voice-btn" onclick="startRecognition()">🎤</button>
+                <button type="submit" id="search-button">🔍</button>
+             
+            </form>
+        </div>
+    </header> 
+
+    <!-- main content -->
+    <main>
+        <section class="contribution-form">
+            <h1>Ajouter une ressource</h1>
+            <form id="addResourceForm">
+                <!-- type de ressource -->
+                <label for="type">Type de ressource :</label>
+                <select id="type" name="type" onchange="updateForm()" required>
+                    <option value="">-- Sélectionnez --</option>
+                    <option value="images">Image</option>
+                    <option value="audio">Audio</option>
+                    <option value="videos">Vidéo</option>
+                    <option value="livres">Livre</option>
+                </select>
+                <label for="title">Titre :</label>
+                <input type="text" id="title" name="title" placeholder="Titre de la ressource" required />
+
+                <label for="title">Descriptions :</label>
+                <input type="text" id="title" name="title" placeholder="Titre de la ressource" required />
+
+                <!-- contenu dynamique -->
+                <div id="dynamic-fields"></div>
+
+                <!-- bouton de soumission -->
+                <button class="submit" type="submit">Ajouter la ressource</button>
+            </form>
+
+            <div id="confirmationMessage" class="hidden">
+                <p>La ressource a été ajoutée avec succès ! Merci pour votre contribution.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 WikiCulture</p>
+    </footer>
+
+    <script>
+        // fonction pour mettre a jour le formulaire
+        function updateForm() {
+            const type = document.getElementById('type').value;
+            const dynamicFields = document.getElementById('dynamic-fields');
+            dynamicFields.innerHTML = ""; // reinitialiser le contenu
+
+            if (type === "images") {
+                dynamicFields.innerHTML = `
+                    <label for="image">Télécharger une image :</label>
+                    <input type="file" id="image" name="image" accept="image/*" required>
+
+                    <p>Ou :</p>
+                    <button type="button" onclick="startCamera()">Prendre une photo</button>
+                    <video id="camera" autoplay hidden></video>
+                    <canvas id="photoCanvas" hidden></canvas>
+                `;
+            } else if (type === "audio") {
+                dynamicFields.innerHTML = `
+                    <label for="audio">Télécharger un fichier audio :</label>
+                    <input type="file" id="audio" name="audio" accept="audio/*" required>
+
+                    <p>Ou :</p>
+                    <button type="button" onclick="startMicrophone()">Enregistrer avec le microphone</button>
+                    <audio id="microphone" controls hidden></audio>
+                `;
+            } else if (type === "livres") {
+                dynamicFields.innerHTML = `
+                    <label for="book">Télécharger un livre numérisé :</label>
+                    <input type="file" id="book" name="book" accept=".pdf" required>
+
+                    <p>Ou :</p>
+                    <button type="button" onclick="startCamera()">Scanner une page avec la caméra</button>
+                    <video id="camera" autoplay hidden></video>
+                    <canvas id="photoCanvas" hidden></canvas>
+                `;
+            }
+        }
+
+        // activer la camera pour capturer une image
+        function startCamera() {
+            const video = document.getElementById('camera');
+            const canvas = document.getElementById('photoCanvas');
+
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then(stream => {
+                    video.srcObject = stream;
+                    video.hidden = false;
+
+                    // capturer une photo
+                    video.addEventListener('click', () => {
+                        canvas.hidden = false;
+                        const context = canvas.getContext('2d');
+                        canvas.width = video.videoWidth;
+                        canvas.height = video.videoHeight;
+                        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+                        // arreter la caméra après capture
+                        stream.getTracks().forEach(track => track.stop());
+                        video.hidden = true;
+                    });
+                })
+                .catch(err => alert("Impossible d'accéder à la caméra : " + err));
+        }
+
+        // activer le microphone pour enregistrer un audio
+        function startMicrophone() {
+            const audio = document.getElementById('microphone');
+            audio.hidden = false;
+
+            navigator.mediaDevices.getUserMedia({ audio: true })
+                .then(stream => {
+                    const mediaRecorder = new MediaRecorder(stream);
+                    const audioChunks = [];
+
+                    mediaRecorder.ondataavailable = event => audioChunks.push(event.data);
+
+                    mediaRecorder.onstop = () => {
+                        const audioBlob = new Blob(audioChunks);
+                        audio.src = URL.createObjectURL(audioBlob);
+                    };
+
+                    // demarrer l'enregistrement
+                    mediaRecorder.start();
+                    setTimeout(() => mediaRecorder.stop(), 5000); // enregistrer pendant 5 secondes
+                })
+                .catch(err => alert("Impossible d'accéder au microphone : " + err));
+        }
+    </script>
+</body>
+</html>
+
+
+

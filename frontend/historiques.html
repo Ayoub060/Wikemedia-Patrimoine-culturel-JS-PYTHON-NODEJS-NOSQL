@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Frise Chronologique</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+
+    /* Global */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f9f8f6; 
+    color: #594a42; 
+    line-height: 1.8;
+}
+
+
+.header {
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    background: linear-gradient(135deg, #6a9cab, #3b6970);
+    padding: 20px 40px;
+    color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Montserrat', sans-serif; 
+}
+
+.logo a {
+    font-size: 28px;
+    font-weight: 800;
+    text-decoration: none;
+    color: #fff;
+    background: linear-gradient(45deg, #ff6f61, #ffde7d);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: logo-shine 3s infinite linear;
+    letter-spacing: 2px;
+    margin-right: 200px;
+}
+
+/* Effet animé pour le logo */
+@keyframes logo-shine {
+    0% {
+        background-position: 0%;
+    }
+    100% {
+        background-position: 200%;
+    }
+}
+
+/* Navigation */
+.nav {
+    list-style: none; /* Supprime les puces des listes */
+    display: flex; /* Aligne les éléments sur une ligne */
+    gap: 30px; /* Ajoute un espacement uniforme entre les éléments */
+    margin: 0;
+    padding: 0;
+}
+
+.nav li {
+    display: inline; /* Les éléments enfants apparaissent côte à côte */
+}
+
+.nav li a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: 600;
+    padding: 5px 15px;
+    border: 2px solid transparent;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+.nav li a:hover {
+    background: #fff;
+    color: #3b6970;
+    border-color: #fff;
+}
+.timeline {
+  position: relative;
+  margin: 50px auto;
+  padding: 20px 0;
+  width: 90%;
+  max-width: 800px;
+}
+
+.timeline::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 100%;
+  background-color: #007f3f;
+}
+
+.timeline-event {
+  display: flex;
+  justify-content: flex-end; /* Ajustez selon le côté */
+  align-items: center;
+  margin: 20px 0;
+  position: relative;
+}
+
+.timeline-event:nth-child(even) {
+  justify-content: flex-start;
+}
+
+.event-circle {
+  width: 20px;
+  height: 20px;
+  background-color: #e74c3c;
+  border-radius: 50%;
+  border: 4px solid #fff;
+  z-index: 1;
+  position: relative;
+}
+
+.event-content {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  width: 40%;
+  text-align: left;
+}
+
+.event-content h3 {
+  margin: 0;
+  font-size: 1.2em;
+  color: #007f3f;
+}
+
+.event-content p {
+  margin: 10px 0 0;
+  font-size: 0.95em;
+  color: #555;
+}
+
+/* Ajustement pour mieux espacer */
+.timeline-event:nth-child(even) .event-content {
+  text-align: right;
+}
+
+.timeline-event:nth-child(odd) .event-content {
+  text-align: left;
+}
+
+</style>
+</head>
+<body>
+  <!-- header -->
+  <header class="header"> 
+    <nav class="nav"> 
+        <div class="logo">
+            <a href="index.html">WikiCulture</a>
+        </div>
+        <ul> 
+            <li><a href="historiques.html">Historiques</a></li>
+            <li><a href="associatif.html">Associatif</a></li>
+            <li><a href="collections.html">Collections</a></li> 
+            <li><a href="contributions.html">Contributions</a></li>
+            <li><a href="contact.html">Contact</a></li>  
+        </ul> 
+    </nav> 
+    <div class="search-container">
+        <form action="{{ url_for('search') }}" method="POST" onsubmit="return validateInput()">
+           
+            <input type="text" name="query" id="search-input" placeholder="Rechercher..." maxlength="50" required>
+            <button type="button" id="voice-btn" onclick="startRecognition()">🎤</button>
+            <button type="submit" id="search-button">🔍</button>
+         
+        </form>
+    </div>
+</header> 
+
+  <div class="timeline">
+    <!-- Événement 1 -->
+    <div class="timeline-event">
+      <div class="event-circle"></div>
+      <div class="event-content">
+        <h3>1971</h3>
+        <p>🏆 Coupe de la République : 1971, 1973, 1976...</p>
+      </div>
+    </div>
+    <!-- Événement 2 -->
+    <div class="timeline-event">
+      <div class="event-circle"></div>
+      <div class="event-content">
+        <h3>1972</h3>
+        <p>🏆 Championnat national : 1972, 1975, 1976...</p>
+      </div>
+    </div>
+    <!-- Événement 3 -->
+    <div class="timeline-event">
+      <div class="event-circle"></div>
+      <div class="event-content">
+        <h3>2006</h3>
+        <p>🏆 Nouvelle victoire historique.</p>
+      </div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+<script>
+// script.js
+document.addEventListener("DOMContentLoaded", () => {
+  const events = document.querySelectorAll(".timeline-event");
+
+  const handleScroll = () => {
+    const triggerHeight = window.innerHeight * 0.8;
+
+    events.forEach((event) => {
+      const eventPosition = event.getBoundingClientRect().top;
+
+      if (eventPosition < triggerHeight) {
+        event.classList.add("visible");
+      }
+    });
+  };
+
+  window.addEventListener("scroll", handleScroll);
+
+  // Appel initial au cas où des éléments seraient déjà visibles
+  handleScroll();
+});
+
+</script>
+</html>

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collections</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="./javascript/script.js" defer></script>
+</head>
+<style>
+    /* Conteneur des produits */
+    .product-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            padding: 2rem;
+            justify-content: center;
+        }
+        .product {
+            flex: 1 1 calc(20% - 1rem); /* 20% pour 5 colonnes */
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            padding: 1rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .product:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        .product img {
+            width: 100%;
+            border-radius: 10px;
+        }
+        .product h3 {
+            margin-top: 1rem;
+            color: #0071ce;
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        .pagination button {
+            padding: 0.5rem 1rem;
+            background-color: #0071ce;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .pagination button:hover {
+            background-color: #005ba1;
+        }
+        .pagination button.disabled {
+            background-color: #ddd;
+            cursor: not-allowed;
+        }
+
+        /* Pied de page */
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1.5rem 0;
+            margin-top: 2rem;
+        }
+        footer a {
+            color: #ffd700;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        footer a:hover {
+            color: white;
+        }
+        .stars {
+            margin-top: 0.5rem;
+        }
+        .stars span {
+            font-size: 1.5rem;
+            color: #ddd; /* Couleur par défaut */
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        .stars span.selected {
+            color: #f4c430; /* Couleur des étoiles sélectionnées */
+        }
+</style>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">
+                <a href="index.html">WikiCulture</a>
+            </div>
+            <ul>
+                <li><a href="historiques.html">Historiques</a></li>
+                <li><a href="associatif.html">Associatif</a></li>
+                <li><a href="collections.html" class="active">Collections</a></li>
+                <li><a href="contributions.html">Contributions</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="search-container">
+            <form action="{{ url_for('search') }}" method="POST" onsubmit="return validateInput()">
+               
+                <input type="text" name="query" id="search-input" placeholder="Rechercher..." maxlength="50" required>
+                <button type="button" id="voice-btn" onclick="startRecognition()">🎤</button>
+                <button type="submit" id="search-button">🔍</button>
+             
+            </form>
+        </div>
+    </header>
+
+    <main class="collection-main">
+        <h1>Explorez nos Collections</h1>
+        <p>Découvrez une variété de ressources culturelles numériques, incluant des livres, audios et illustrations. Cliquez sur une ressource pour plus de détails.</p>
+        
+      <!-- Conteneur des produits -->
+    <section class="product-container" id="product-container">
+        <!-- Les produits seront ajoutés dynamiquement ici -->
+    </section>
+
+    <!-- Pagination -->
+    <div class="pagination" id="pagination">
+        <button id="prev" class="disabled" disabled>Précédent</button>
+        <button id="next">Suivant</button>
+    </div>
+
+   
+
+    </main>
+
+    <footer>
+        <p>&copy; 2024 WikiCulture - Tous droits réservés</p>
+    </footer>
+ 
+    <script>
+        // Liste des produits
+        const products = Array.from({ length: 200 }, (_, i) => ({
+        id: i + 1, // Identifiant unique
+        name: `Patrimoine ${i + 1}`,
+        image: './images/logo1.png',
+        }));
+
+        const itemsPerPage = 35; // 5 colonnes * 7 lignes
+        let currentPage = 1;
+
+        // Fonction pour afficher les produits d'une page
+        function displayProducts(page) {
+    const startIndex = (page - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const productsToDisplay = products.slice(startIndex, endIndex);
+
+    const productContainer = document.getElementById('product-container');
+    productContainer.innerHTML = '';
+
+    productsToDisplay.forEach(product => {
+        const productElement = document.createElement('div');
+        productElement.classList.add('product');
+        productElement.innerHTML = `
+            <img src="${product.image}" alt="${product.name}">
+            <h3>${product.name}</h3>
+            <div class="stars" data-product="2">
+                <span>&#9733;</span>
+                <span>&#9733;</span>
+                <span>&#9733;</span>
+                <span>&#9733;</span>
+                <span>&#9733;</span>
+            </div>
+        `;
+        // Ajouter un événement click
+        productElement.addEventListener('click', () => {
+            // Redirection vers la page de détails avec l'ID
+            window.location.href = `patrimoine.html?id=${product.id}`;
+        });
+        productContainer.appendChild(productElement);
+    });
+
+    updatePagination(page);
+}
+
+        // Fonction pour mettre à jour la pagination
+        function updatePagination(page) {
+            const totalPages = Math.ceil(products.length / itemsPerPage);
+            document.getElementById('prev').disabled = page === 1;
+            document.getElementById('prev').classList.toggle('disabled', page === 1);
+            document.getElementById('next').disabled = page === totalPages;
+            document.getElementById('next').classList.toggle('disabled', page === totalPages);
+        }
+
+        // Ajouter les événements pour les boutons
+        document.getElementById('prev').addEventListener('click', () => {
+            if (currentPage > 1) {
+                currentPage--;
+                displayProducts(currentPage);
+            }
+        });
+
+        document.getElementById('next').addEventListener('click', () => {
+            const totalPages = Math.ceil(products.length / itemsPerPage);
+            if (currentPage < totalPages) {
+                currentPage++;
+                displayProducts(currentPage);
+            }
+        });
+
+        // Afficher les produits pour la première page
+        displayProducts(currentPage);
+
+
+        // Gestion des clics sur les étoiles
+        const starsContainers = document.querySelectorAll(".stars");
+
+        starsContainers.forEach(container => {
+            const stars = container.querySelectorAll("span");
+
+            stars.forEach((star, index) => {
+                star.addEventListener("click", () => {
+                    // Réinitialiser les étoiles
+                    stars.forEach(s => s.classList.remove("selected"));
+
+                    // Activer les étoiles jusqu'à celle cliquée
+                    for (let i = 0; i <= index; i++) {
+                        stars[i].classList.add("selected");
+                    }
+
+                    // Récupérer les informations d'évaluation
+                    const productId = container.getAttribute("data-product");
+                    const rating = index + 1; // Index commence à 0, donc +1
+
+                    console.log(`Produit ${productId} évalué à ${rating} étoiles.`);
+
+                    // Envoi de l'évaluation à une API (optionnel)
+                    // fetch('/api/avis', {
+                    //     method: 'POST',
+                    //     headers: { 'Content-Type': 'application/json' },
+                    //     body: JSON.stringify({ productId, rating })
+                    // });
+                });
+            });
+        });
+
+        // Fonction pour ouvrir le panier
+        function openCart() {
+            alert("Panier ouvert !");
+        }
+    </script>
+</body>
+</html>
+   

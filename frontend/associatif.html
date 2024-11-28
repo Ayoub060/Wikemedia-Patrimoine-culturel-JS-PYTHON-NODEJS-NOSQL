@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contributions</title>
+    <link rel="stylesheet" href="./css/contributions.css">
+</head>
+<body>
+    <!-- header -->
+    <header class="header"> 
+        <nav class="nav"> 
+            <div class="logo">
+                <a href="index.html">WikiCulture</a>
+            </div>
+            <ul> 
+                <li><a href="historiques.html">Historiques</a></li>
+                <li><a href="associatif.html">Associatif</a></li>
+                <li><a href="collections.html">Collections</a></li> 
+                <li><a href="contributions.html">Contributions</a></li>
+                <li><a href="contact.html">Contact</a></li>  
+            </ul> 
+        </nav> 
+        <div class="search-container">
+            <form action="{{ url_for('search') }}" method="POST" onsubmit="return validateInput()">
+               
+                <input type="text" name="query" id="search-input" placeholder="Rechercher..." maxlength="50" required>
+                <button type="button" id="voice-btn" onclick="startRecognition()">🎤</button>
+                <button type="submit" id="search-button">🔍</button>
+             
+            </form>
+        </div>
+    </header> 
+
+    <p style="text-align: center; margin-top:20%;">ici c'est la page de l'association</p>
+
+</body>
+</html>
+
+
+

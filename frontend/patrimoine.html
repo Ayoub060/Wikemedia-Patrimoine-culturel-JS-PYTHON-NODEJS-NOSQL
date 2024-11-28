@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produit - Catalogue des Boissons</title>
+    <style>
+        /* Global */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f9f8f6; 
+    color: #594a42; 
+    line-height: 1.8;
+}
+
+
+.header {
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    background: linear-gradient(135deg, #6a9cab, #3b6970);
+    padding: 20px 40px;
+    color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Montserrat', sans-serif; 
+}
+
+.logo a {
+    font-size: 28px;
+    font-weight: 800;
+    text-decoration: none;
+    color: #fff;
+    background: linear-gradient(45deg, #ff6f61, #ffde7d);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: logo-shine 3s infinite linear;
+    letter-spacing: 2px;
+    margin-right: 200px;
+}
+
+/* Effet animé pour le logo */
+@keyframes logo-shine {
+    0% {
+        background-position: 0%;
+    }
+    100% {
+        background-position: 200%;
+    }
+}
+
+/* Navigation */
+.nav {
+    list-style: none; /* Supprime les puces des listes */
+    display: flex; /* Aligne les éléments sur une ligne */
+    gap: 30px; /* Ajoute un espacement uniforme entre les éléments */
+    margin: 0;
+    padding: 0;
+}
+
+.nav li {
+    display: inline; /* Les éléments enfants apparaissent côte à côte */
+}
+
+.nav li a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: 600;
+    padding: 5px 15px;
+    border: 2px solid transparent;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+.nav li a:hover {
+    background: #fff;
+    color: #3b6970;
+    border-color: #fff;
+}
+
+.search-container {
+    position: relative;
+    display: inline-block;
+}
+
+#search-input {
+    width: 300px;
+    padding: 10px 40px 10px 20px;
+    border: 2px solid #597f7f;;
+    border-radius: 25px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+#search-input:focus {
+    outline: none;
+    border-color: #597f7f;;
+}
+
+#search-button {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #597f7f;;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#search-button:hover {
+    background-color: #0056b3;;
+}
+
+.search-result {
+    margin-top: 20px;
+    font-size: 18px;
+    color: #555;
+}
+
+#voice-btn {
+    position: absolute;
+    right: 50px; 
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #597f7f;;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-right: 5px;
+}
+
+#voice-btn:hover {
+    background-color: #0056b3;
+}
+        .container {
+            display: flex;
+            padding: 2rem;
+            gap: 2rem;
+        }
+        .product-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .product-image img {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+        .product-details {
+            flex: 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .product-details h1 {
+            margin: 0;
+            color: #333;
+        }
+        .product-details p {
+            margin: 1rem 0;
+            color: #555;
+            line-height: 1.5;
+        }
+        .actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .quantity {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .quantity input {
+            width: 50px;
+            padding: 0.5rem;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .add-to-cart {
+            padding: 0.5rem 1.5rem;
+            background-color: #0071ce;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .add-to-cart:hover {
+            background-color: #005bb5;
+        }
+        footer {
+            background-color: #f2f2f2;
+            color: #333;
+            text-align: center;
+            padding: 1rem;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">
+                <a href="index.html">WikiCulture</a>
+            </div>
+            <ul>
+                <li><a href="historiques.html">Historiques</a></li>
+                <li><a href="associatif.html">Associatif</a></li>
+                <li><a href="collections.html" class="active">Collections</a></li>
+                <li><a href="contributions.html">Contributions</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="search-container">
+            <form action="{{ url_for('search') }}" method="POST" onsubmit="return validateInput()">
+               
+                <input type="text" name="query" id="search-input" placeholder="Rechercher..." maxlength="50" required>
+                <button type="button" id="voice-btn" onclick="startRecognition()">🎤</button>
+                <button type="submit" id="search-button">🔍</button>
+             
+            </form>
+        </div>
+    </header>
+    <div class="container">
+        <!-- Section gauche : Image du produit -->
+        <div class="product-image">
+            <img src="./images/logo1.png" alt="Boisson Énergétique">
+        </div>
+        <!-- Section droite : Description -->
+        <div class="product-details">
+            <h1>Article de journal de la seconde guerre mondiale</h1>
+            <p>
+                Article de journal de la seconde guerre mondiale. 
+                suite aux accords berlin et vienne
+            </p>
+
+        </div>
+    </div>
+    <footer>
+       Your Project
+    </footer>
+</body>
+</html>
