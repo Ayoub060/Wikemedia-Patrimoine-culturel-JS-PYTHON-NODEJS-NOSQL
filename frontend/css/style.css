@@ -4,60 +4,75 @@
     padding: 0;
     box-sizing: border-box;
 }
-
 body {
-    font-family: 'Roboto', sans-serif;
-    background-color: #f4f4f9;
-    color: #796956;
-    line-height: 1.6;
-    padding: 5px;
+    font-family: 'Poppins', sans-serif;
+    background-color: #f9f8f6; 
+    color: #594a42; 
+    line-height: 1.8;
 }
-
 
 
 .header {
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    background-color: #597f7f; /* Dégradé dynamique */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    background: linear-gradient(135deg, #6a9cab, #3b6970);
+    padding: 20px 40px;
+    color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Montserrat', sans-serif; 
 }
 
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 30px;
-    transition: all 0.3s ease-in-out;
+.logo a {
+    font-size: 28px;
+    font-weight: 800;
+    text-decoration: none;
+    color: #fff;
+    background: linear-gradient(45deg, #ff6f61, #ffde7d);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: logo-shine 3s infinite linear;
+    letter-spacing: 2px;
+    margin-right: 200px;
 }
 
-logo img {
-    height: 100%;
-    width: 100%;
-    transition: transform 0.3s ease;
+/* Effet animé pour le logo */
+@keyframes logo-shine {
+    0% {
+        background-position: 0%;
+    }
+    100% {
+        background-position: 200%;
+    }
 }
 
-.logo img:hover {
-    transform: scale(1.1); /* Effet au survol */
+/* Navigation */
+.nav {
+    list-style: none; /* Supprime les puces des listes */
+    display: flex; /* Aligne les éléments sur une ligne */
+    gap: 30px; /* Ajoute un espacement uniforme entre les éléments */
+    margin: 0;
+    padding: 0;
 }
 
-.nav ul {
-    list-style: none;
-    display: flex;
-    gap: 20px;
+.nav li {
+    display: inline; /* Les éléments enfants apparaissent côte à côte */
 }
 
-.nav ul li a {
+.nav li a {
     text-decoration: none;
     color: #fff;
     font-weight: 600;
-    font-size: 1.1rem;
-    transition: color 0.3s ease;
+    padding: 5px 15px;
+    border: 2px solid transparent;
+    border-radius: 20px;
+    transition: all 0.3s ease;
 }
 
-.nav ul li a:hover {
-    color: #fefefe;
-    border-bottom: 2px solid #fff;
+.nav li a:hover {
+    background: #fff;
+    color: #3b6970;
+    border-color: #fff;
 }
 
 .search-container {
@@ -237,6 +252,7 @@ h1 {
 
     .nav ul {
         font-size: 130%;
+        
     }
 
     iframe {

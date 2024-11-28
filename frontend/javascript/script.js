@@ -22,5 +22,53 @@ function updateCarousel() {
 
 setInterval(() => {
     moveSlide(1);
-}, 5000); 
+}, 5000);
+
+function startRecognition(){
+ 
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+     alert("La reconnaissance vocale n'est pas supportée par votre navigateur.");
+    } else {
+     const recognition = new SpeechRecognition();
+     recognition.lang = 'fr-FR'; 
+     recognition.continuous = true;  
+    
+     const startButton = document.getElementById('voice-btn');
+     const transcription = document.getElementById('search-input');
+    
+     
+     startButton.addEventListener('click', () => {
+         transcription.textContent = 'En écoute...';
+         recognition.start();
+     });
+    
+     
+     recognition.onresult = function(event) {
+         let transcript = '';
+         for (let i = event.resultIndex; i < event.results.length; i++) {
+             transcript += event.results[i][0].transcript;
+         }
+         transcription.value = transcript;
+         console.log( transcription.textContent);
+     };
+     recognition.onend = function() {
+         transcription.textContent += ' (Reconnaissance terminée)';
+     };
+    
+     
+     recognition.onerror = function(event) {
+         transcription.textContent = 'Erreur de reconnaissance vocale : ' + event.error;
+     };
+    }
+    }
+    
+    window.addEventListener("pageshow", function (event) {
+        if (event.persisted) {
+            
+            window.location.reload();
+            const resultDiv = document.getElementById('search-result');
+            resultDiv.textContent=""
+        }
+    });
     
