@@ -90,6 +90,49 @@
         .stars span.selected {
             color: #f4c430; /* Couleur des étoiles sélectionnées */
         }
+        .product img {
+            display: block; /* Transforme l'image en élément de type bloc */
+            margin: 0 auto; /* Centre l'image horizontalement */
+            max-width: 100%; /* Limite la taille de l'image à celle du conteneur */
+            height: auto; /* Maintient les proportions */
+        }
+        .filter-buttons {
+            display: flex;
+            justify-content: flex-end; /* Aligne les boutons à droite */
+            gap: 0.5rem; /* Espace entre les boutons */
+            margin-top: 1rem; /* Espace entre le paragraphe et les boutons */
+            margin-right: 3%;
+        }
+
+        .filter-buttons button {
+             padding: 0.5rem 1rem;
+             background-color: #0071ce;
+             color: white;
+             border: none;
+             border-radius: 5px;
+             cursor: pointer;
+             transition: background-color 0.3s;
+        }
+
+        .filter-buttons button:hover {
+            background-color: #005ba1;
+        }
+        .text{
+            font-family: 'Montserrat', sans-serif; 
+            font-size: 1.2rem;
+            color: #333; 
+            line-height: 1.6; 
+            text-align: justify; 
+            margin-bottom: 1.5rem; 
+            background-color: #f9f9f9; 
+            padding: 1rem; 
+            border-radius: 5px; 
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+
+
+        }
+    
+
 </style>
 <body>
     <header class="header">
@@ -118,8 +161,14 @@
 
     <main class="collection-main">
         <h1>Explorez nos Collections</h1>
-        <p>Découvrez une variété de ressources culturelles numériques, incluant des livres, audios et illustrations. Cliquez sur une ressource pour plus de détails.</p>
-        
+        <p class="text">Découvrez une variété de ressources culturelles numériques, incluant des livres, audios et illustrations. Cliquez sur une ressource pour plus de détails.</p>
+        <div class="filter-buttons">
+            <button onclick="filterResources('audio')">Audios</button>
+            <button onclick="filterResources('video')">Vidéos</button>
+            <button onclick="filterResources('image')">Images</button>
+            <button onclick="filterResources('livre')">Livres</button>
+            <button onclick="filterResources('revue')">Revues</button>
+        </div>
       <!-- Conteneur des produits -->
     <section class="product-container" id="product-container">
         <!-- Les produits seront ajoutés dynamiquement ici -->
@@ -135,9 +184,11 @@
 
     </main>
 
-    <footer>
-        <p>&copy; 2024 WikiCulture - Tous droits réservés</p>
-    </footer>
+      <!-- Pied de page -->
+      <footer>
+        © 2024 WikiCulture
+        . Tous droits réservés. | <a href="#">Mentions légales</a> | <a href="#">Politique de confidentialité</a>
+     </footer>
  
     <script>
         // Liste des produits
@@ -163,7 +214,7 @@
         const productElement = document.createElement('div');
         productElement.classList.add('product');
         productElement.innerHTML = `
-            <img src="${product.image}" alt="${product.name}">
+            <img src="${product.image}" alt="${product.name} style="display: block; margin: 0 auto"">
             <h3>${product.name}</h3>
             <div class="stars" data-product="2">
                 <span>&#9733;</span>

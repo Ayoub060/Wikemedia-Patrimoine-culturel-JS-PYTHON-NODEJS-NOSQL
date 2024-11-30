@@ -117,6 +117,7 @@ body {
 .video {
     flex: 1 1 100%; /* Default 100% width */
     padding: 20px;
+    text-align: justify;
 }
 
 iframe {
@@ -216,14 +217,24 @@ button.prev {
 button.next {
     right: 10px;
 }
+
+
 footer {
-    background-color: #333333;
-    color: #fff;
+    background-color: #333;
+    color: white;
     text-align: center;
-    padding: 10px 0;
-    margin-top: 20px;
-    font-size: 0.9em;
+    padding: 1.5rem 0;
+    margin-top: 2rem;
 }
+footer a {
+    color: #ffd700;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+footer a:hover {
+    color: white;
+}
+
 
 /* Headings */
 h1 {

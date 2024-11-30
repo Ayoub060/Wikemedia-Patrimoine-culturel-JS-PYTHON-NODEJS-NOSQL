@@ -145,7 +145,7 @@ body {
 }
         .container {
             display: flex;
-            padding: 2rem;
+            padding: 2rem 2rem 0; 
             gap: 2rem;
         }
         .product-image {
@@ -155,6 +155,7 @@ body {
             align-items: center;
         }
         .product-image img {
+            margin-top: 5PX;
             width: 100%;
             max-width: 400px;
             border-radius: 8px;
@@ -225,6 +226,22 @@ body {
     filter: blur(8px); /* Ajustez le niveau de flou ici */
     pointer-events: none; /* Désactive les interactions avec la carte floutée */
 }
+* Pied de page */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1.5rem 0;
+    margin-top: 2rem;
+}
+footer a {
+    color: #ffd700;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+footer a:hover {
+    color: white;
+}
     </style>
 </head>
 <body>
@@ -257,19 +274,28 @@ body {
         </div>
         <div class="product-details">
             <h1>Article de journal de la seconde guerre mondiale</h1>
-            <p>
+            <p>Description :</p>
+            <p style="text-align: justify;">
                 Article de journal de la seconde guerre mondiale. 
+                suite aux accords berlin et vienne Article de journal de la seconde guerre mondiale. 
+                suite aux accords berlin et vienne Article de journal de la seconde guerre mondiale. 
+                suite aux accords berlin et vienne Article de journal de la seconde guerre mondiale. 
+                suite aux accords berlin et vienne Article de journal de la seconde guerre mondiale. 
+                suite aux accords berlin et vienne Article de journal de la seconde guerre mondiale. 
+                suite aux accords berlin et vienne Article de journal de la seconde guerre mondiale. 
                 suite aux accords berlin et vienne
             </p>
-            <button onclick="toggleBlur()">Flouter/Déflouter la carte</button>
-            <div id="map"></div>
+            <!--<button onclick="toggleBlur()">Flouter/Déflouter la carte</button> -->
+            <div id="map" style="margin-bottom: 3%;"></div>
         </div>
        
     </div>
      
-    <footer>
-       Your Project
-    </footer>
+      <!-- Pied de page -->
+      <footer>
+        © 2024 WikiCulture
+        . Tous droits réservés. | <a href="#">Mentions légales</a> | <a href="#">Politique de confidentialité</a>
+        </footer>
 
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script>
@@ -287,7 +313,7 @@ body {
                     map.setView([userLat, userLng], 13);
 
                     const greenManIcon = L.icon({
-                        iconUrl: './assets/homm.png',  
+                        iconUrl: './images/homme.png',  
                         iconSize: [32, 32],  
                         iconAnchor: [16, 32],  
                         popupAnchor: [0, -32],  

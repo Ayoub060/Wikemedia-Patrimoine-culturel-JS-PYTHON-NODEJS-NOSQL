@@ -31,44 +31,51 @@
             </form>
         </div>
     </header> 
-
-    <!-- main content -->
-    <main>
-        <section class="contribution-form">
-            <h1>Ajouter une ressource</h1>
-            <form id="addResourceForm">
-                <!-- type de ressource -->
-                <label for="type">Type de ressource :</label>
-                <select id="type" name="type" onchange="updateForm()" required>
-                    <option value="">-- Sélectionnez --</option>
-                    <option value="images">Image</option>
-                    <option value="audio">Audio</option>
-                    <option value="videos">Vidéo</option>
-                    <option value="livres">Livre</option>
-                </select>
-                <label for="title">Titre :</label>
-                <input type="text" id="title" name="title" placeholder="Titre de la ressource" required />
-
-                <label for="title">Descriptions :</label>
-                <input type="text" id="title" name="title" placeholder="Titre de la ressource" required />
-
-                <!-- contenu dynamique -->
-                <div id="dynamic-fields"></div>
-
-                <!-- bouton de soumission -->
-                <button class="submit" type="submit">Ajouter la ressource</button>
+    <div class="container" style="display: flex; gap: 10px; padding: 20px;">
+        <!-- Image à gauche -->
+        <img src="" alt="Audio Icon" style="margin-left: 10%;" >
+        <!-- Formulaire à droite -->
+        <main style="flex: 2; margin-top: 5px;">
+            <section class="contribution-form" style="width: 100%; background-color: #f9f9f9; padding: 20px; border-radius: 8px;">
+                <h1 class="momo">Ajouter une ressource</h1>
+                <form id="addResourceForm" style="display: flex; flex-direction: column; gap: 15px;">
+              <!-- Type de ressource -->
+              <label for="type">Type de ressource :</label>
+              <select id="type" name="type" onchange="updateForm()" required>
+                <option value="">-- Sélectionnez --</option>
+                <option value="images">Image</option>
+                <option value="audio">Audio</option>
+                <option value="videos">Vidéo</option>
+                <option value="livres">Livre</option>
+              </select>
+      
+              <label for="title">Titre :</label>
+              <input type="text" id="title" name="title" placeholder="Titre de la ressource" required />
+      
+              <label for="description">Descriptions :</label>
+              <input type="text" id="description" name="description" placeholder="Description de la ressource" required />
+      
+              <!-- Contenu dynamique -->
+              <div id="dynamic-fields"></div>
+      
+              <!-- Bouton de soumission -->
+              <button class="submit" type="submit" style="padding: 10px 20px; background-color: #007BFF; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                Ajouter la ressource
+              </button>
             </form>
-
-            <div id="confirmationMessage" class="hidden">
-                <p>La ressource a été ajoutée avec succès ! Merci pour votre contribution.</p>
+      
+            <div id="confirmationMessage" class="hidden" style="margin-top: 20px; color: green;">
+              <p>La ressource a été ajoutée avec succès ! Merci pour votre contribution.</p>
             </div>
-        </section>
-    </main>
-
-    <footer>
-        <p>&copy; 2024 WikiCulture</p>
-    </footer>
-
+          </section>
+        </main>
+      </div>
+      
+      <!-- Pied de page -->
+      <footer>
+        © 2024 WikiCulture
+        . Tous droits réservés. | <a href="#">Mentions légales</a> | <a href="#">Politique de confidentialité</a>
+      </footer>
     <script>
         // fonction pour mettre a jour le formulaire
         function updateForm() {
@@ -77,6 +84,10 @@
             dynamicFields.innerHTML = ""; // reinitialiser le contenu
 
             if (type === "images") {
+                const image = document.querySelector('img');
+                const h1 = document.querySelector('.momo');
+                h1.textContent = 'Ajouter une image';
+                image.src = './images/image.svg';
                 dynamicFields.innerHTML = `
                     <label for="image">Télécharger une image :</label>
                     <input type="file" id="image" name="image" accept="image/*" required>
@@ -87,6 +98,10 @@
                     <canvas id="photoCanvas" hidden></canvas>
                 `;
             } else if (type === "audio") {
+                const image = document.querySelector('img');
+                const h1 = document.querySelector('.momo');
+                h1.textContent = 'Ajouter un audio';
+                image.src = './images/audio.svg';
                 dynamicFields.innerHTML = `
                     <label for="audio">Télécharger un fichier audio :</label>
                     <input type="file" id="audio" name="audio" accept="audio/*" required>
@@ -96,6 +111,7 @@
                     <audio id="microphone" controls hidden></audio>
                 `;
             } else if (type === "livres") {
+                const image = document.querySelector('img');
                 dynamicFields.innerHTML = `
                     <label for="book">Télécharger un livre numérisé :</label>
                     <input type="file" id="book" name="book" accept=".pdf" required>
@@ -105,6 +121,11 @@
                     <video id="camera" autoplay hidden></video>
                     <canvas id="photoCanvas" hidden></canvas>
                 `;
+            }else if (type === "videos"){
+                const h1 = document.querySelector('.momo');
+                h1.textContent = 'Ajouter une vidéo';
+                const image = document.querySelector('img');
+                image.src = './images/video.svg';
             }
         }
 
@@ -133,7 +154,6 @@
                 })
                 .catch(err => alert("Impossible d'accéder à la caméra : " + err));
         }
-
         // activer le microphone pour enregistrer un audio
         function startMicrophone() {
             const audio = document.getElementById('microphone');

@@ -71,29 +71,23 @@ function startRecognition(){
             resultDiv.textContent=""
         }
     });
-    // Gestionnaire du formulaire
 document.getElementById("addResourceForm").addEventListener("submit", function (event) {
-    event.preventDefault(); // Empêcher le rechargement de la page
+    event.preventDefault(); 
 
-    // Récupération des données du formulaire
     const type = document.getElementById("type").value;
     const title = document.getElementById("title").value;
     const file = document.getElementById("file").files[0];
 
-    // Validation simple
     if (!file) {
         alert("Veuillez sélectionner un fichier.");
         return;
     }
 
-    // Simuler l'ajout de la ressource (à remplacer par une requête à un serveur)
     console.log("Type de ressource :", type);
     console.log("Titre :", title);
     console.log("Fichier :", file);
 
-    // Afficher un message de confirmation
     document.getElementById("confirmationMessage").classList.remove("hidden");
 
-    // Réinitialiser le formulaire
     document.getElementById("addResourceForm").reset();
 });
