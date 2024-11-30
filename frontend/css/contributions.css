@@ -213,3 +213,30 @@ footer a {
 footer a:hover {
     color: white;
 }
+
+/* Responsive Design */
+@media (min-width: 768px) {
+    .paragraph,
+    .video {
+        flex: 1 1 50%; /* 50% for medium and larger screens */
+    }
+
+    iframe {
+        height: 300px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .logo img {
+        height: 140px;
+    }
+
+    .nav ul {
+        font-size: 130%;
+        
+    }
+
+    iframe {
+        height: 400px;
+    }
+}

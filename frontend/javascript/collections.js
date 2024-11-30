@@ -1,53 +1,109 @@
-// Mock data (remplacez cette partie avec une API ou une base de données réelle)
-const resources = [
-    { id: 1, type: "images", title: "Image 1", src: "./images/image1.jpg" },
-    { id: 2, type: "audio", title: "Audio 1", src: "./audios/audio1.mp3" },
-    { id: 3, type: "videos", title: "Vidéo 1", src: "./videos/video1.mp4" },
-    { id: 4, type: "livres", title: "Livre 1", src: "./livres/livre1.pdf" },
-    { id: 5, type: "images", title: "Image 2", src: "./images/image2.jpg" },
-    { id: 6, type: "audio", title: "Audio 2", src: "./audios/audio2.mp3" },
-    { id: 7, type: "videos", title: "Vidéo 2", src: "./videos/video2.mp4" },
-    { id: 8, type: "livres", title: "Livre 2", src: "./livres/livre2.pdf" },
-];
+     // Liste des produits
+     const products = Array.from({ length: 200 }, (_, i) => ({
+        id: i + 1, // Identifiant unique
+        name: `Patrimoine ${i + 1}`,
+        image: './images/logo1.png',
+        }));
 
-// Fonction pour afficher les ressources
-function displayResources(filteredResources) {
-    const container = document.getElementById("resources-container");
-    container.innerHTML = ""; // Clear existing content
+        const itemsPerPage = 35; // 5 colonnes * 7 lignes
+        let currentPage = 1;
 
-    filteredResources.forEach((resource) => {
-        const item = document.createElement("div");
-        item.classList.add("resource-item");
+        // Fonction pour afficher les produits d'une page
+        function displayProducts(page) {
+    const startIndex = (page - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const productsToDisplay = products.slice(startIndex, endIndex);
 
-        if (resource.type === "images") {
-            item.innerHTML = `<img src="${resource.src}" alt="${resource.title}">
-                              <p>${resource.title}</p>`;
-        } else if (resource.type === "audio") {
-            item.innerHTML = `<audio controls>
-                                <source src="${resource.src}" type="audio/mpeg">
-                              </audio>
-                              <p>${resource.title}</p>`;
-        } else if (resource.type === "videos") {
-            item.innerHTML = `<video controls width="100%">
-                                <source src="${resource.src}" type="video/mp4">
-                              </video>
-                              <p>${resource.title}</p>`;
-        } else if (resource.type === "livres") {
-            item.innerHTML = `<a href="${resource.src}" target="_blank">📖 ${resource.title}</a>`;
+    const productContainer = document.getElementById('product-container');
+    productContainer.innerHTML = '';
+
+    productsToDisplay.forEach(product => {
+        const productElement = document.createElement('div');
+        productElement.classList.add('product');
+        productElement.innerHTML = `
+            <img src="${product.image}" alt="${product.name} style="display: block; margin: 0 auto"">
+            <h3>${product.name}</h3>
+            <div class="stars" data-product="2">
+                <span>&#9733;</span>
+                <span>&#9733;</span>
+                <span>&#9733;</span>
+                <span>&#9733;</span>
+                <span>&#9733;</span>
+            </div>
+        `;
+        // Ajouter un événement click
+        productElement.addEventListener('click', () => {
+            // Redirection vers la page de détails avec l'ID
+            window.location.href = `patrimoine.html?id=${product.id}`;
+        });
+        productContainer.appendChild(productElement);
+    });
+
+    updatePagination(page);
+}
+
+        // Fonction pour mettre à jour la pagination
+        function updatePagination(page) {
+            const totalPages = Math.ceil(products.length / itemsPerPage);
+            document.getElementById('prev').disabled = page === 1;
+            document.getElementById('prev').classList.toggle('disabled', page === 1);
+            document.getElementById('next').disabled = page === totalPages;
+            document.getElementById('next').classList.toggle('disabled', page === totalPages);
         }
 
-        container.appendChild(item);
-    });
-}
+        // Ajouter les événements pour les boutons
+        document.getElementById('prev').addEventListener('click', () => {
+            if (currentPage > 1) {
+                currentPage--;
+                displayProducts(currentPage);
+            }
+        });
 
-// Fonction pour filtrer les ressources
-function filterResources(type) {
-    const filteredResources = type === "all" 
-        ? resources 
-        : resources.filter((resource) => resource.type === type);
+        document.getElementById('next').addEventListener('click', () => {
+            const totalPages = Math.ceil(products.length / itemsPerPage);
+            if (currentPage < totalPages) {
+                currentPage++;
+                displayProducts(currentPage);
+            }
+        });
 
-    displayResources(filteredResources);
-}
+        // Afficher les produits pour la première page
+        displayProducts(currentPage);
 
-// Afficher les ressources par défaut (toutes les images)
-filterResources("all");
+
+        // Gestion des clics sur les étoiles
+        const starsContainers = document.querySelectorAll(".stars");
+
+        starsContainers.forEach(container => {
+            const stars = container.querySelectorAll("span");
+
+            stars.forEach((star, index) => {
+                star.addEventListener("click", () => {
+                    // Réinitialiser les étoiles
+                    stars.forEach(s => s.classList.remove("selected"));
+
+                    // Activer les étoiles jusqu'à celle cliquée
+                    for (let i = 0; i <= index; i++) {
+                        stars[i].classList.add("selected");
+                    }
+
+                    // Récupérer les informations d'évaluation
+                    const productId = container.getAttribute("data-product");
+                    const rating = index + 1; // Index commence à 0, donc +1
+
+                    console.log(`Produit ${productId} évalué à ${rating} étoiles.`);
+
+                    // Envoi de l'évaluation à une API (optionnel)
+                    // fetch('/api/avis', {
+                    //     method: 'POST',
+                    //     headers: { 'Content-Type': 'application/json' },
+                    //     body: JSON.stringify({ productId, rating })
+                    // });
+                });
+            });
+        });
+
+        // Fonction pour ouvrir le panier
+        function openCart() {
+            alert("Panier ouvert !");
+        }

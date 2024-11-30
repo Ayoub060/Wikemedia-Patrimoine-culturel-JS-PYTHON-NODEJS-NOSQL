@@ -1,4 +1,5 @@
-/* Global */
+
+        /* Global */
 * {
     margin: 0;
     padding: 0;
@@ -10,7 +11,6 @@ body {
     color: #594a42; 
     line-height: 1.8;
 }
-
 
 .header {
     display: flex; 
@@ -46,15 +46,17 @@ body {
     }
 }
 
+/* Navigation */
 .nav {
-    list-style: none; 
-    display: flex; 
-    gap: 30px; 
+    list-style: none; /* Supprime les puces des listes */
+    display: flex; /* Aligne les éléments sur une ligne */
+    gap: 30px; /* Ajoute un espacement uniforme entre les éléments */
+    margin: 0;
     padding: 0;
 }
 
 .nav li {
-    display: inline; 
+    display: inline; /* Les éléments enfants apparaissent côte à côte */
 }
 
 .nav li a {
@@ -72,7 +74,6 @@ body {
     color: #3b6970;
     border-color: #fff;
 }
-
 
 .search-container {
     position: relative;
@@ -135,56 +136,90 @@ body {
 #voice-btn:hover {
     background-color: #0056b3;
 }
-.contact-section {
-    max-width: 600px;
-    margin: 50px auto;
-    padding: 20px;
-    background-color: #f4f4f4;
+        .container {
+            display: flex;
+            padding: 2rem 2rem 0; 
+            gap: 2rem;
+        }
+        .product-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .product-image img {
+            margin-top: 5PX;
+            width: 100%;
+            max-width: 400px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+        .product-details {
+            flex: 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .product-details h1 {
+            margin: 0;
+            color: #333;
+        }
+        .product-details p {
+            margin: 1rem 0;
+            color: #555;
+            line-height: 1.5;
+        }
+        .actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .quantity {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .quantity input {
+            width: 50px;
+            padding: 0.5rem;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .add-to-cart {
+            padding: 0.5rem 1.5rem;
+            background-color: #0071ce;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .add-to-cart:hover {
+            background-color: #005bb5;
+        }
+        footer {
+            background-color: #f2f2f2;
+            color: #333;
+            text-align: center;
+            padding: 1rem;
+            margin-top: auto;
+        }
+
+        #map {
+    width: 100%; /* Utilise toute la largeur disponible */
+    height: 500px; /* Augmente la hauteur de la carte */
+    margin-top: 20px;
+    border: 1px solid #ddd;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
-
-.contact-section h1 {
-    text-align: center;
-    margin-bottom: 20px;
+.blur {
+    filter: blur(8px); /* Ajustez le niveau de flou ici */
+    pointer-events: none; /* Désactive les interactions avec la carte floutée */
 }
-
-.contact-section form {
-    display: flex;
-    flex-direction: column;
-}
-
-.contact-section label {
-    margin-bottom: 5px;
-    font-weight: bold;
-}
-
-.contact-section input, 
-.contact-section textarea {
-    margin-bottom: 15px;
-    padding: 10px;
-    font-size: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-.contact-section button {
-    padding: 10px;
-    background-color: #333;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1rem;
-    width: 40%;
-    align-self: center;
-    text-align: center;
-}
-
-.contact-section button:hover {
-    background-color: #555;
-}
-
+* Pied de page */
 footer {
     background-color: #333;
     color: white;
@@ -200,30 +235,4 @@ footer a {
 footer a:hover {
     color: white;
 }
-
-/* Responsive Design */
-@media (min-width: 768px) {
-    .paragraph,
-    .video {
-        flex: 1 1 50%; /* 50% for medium and larger screens */
-    }
-
-    iframe {
-        height: 300px;
-    }
-}
-
-@media (min-width: 1024px) {
-    .logo img {
-        height: 140px;
-    }
-
-    .nav ul {
-        font-size: 130%;
-        
-    }
-
-    iframe {
-        height: 400px;
-    }
-}
+    <

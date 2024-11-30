@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reminder Collection</title>
     <link rel="stylesheet" href="./css/style.css">
-    <script hre></script>
 </head>
 <body> 
     <!-- Header -->
@@ -107,7 +106,35 @@
             </div>
         </div>
     </div>
-    <!-- Pied de page -->
+    <div class="circle yellow" onclick="scrollToTop()"> <img src="./images/arrow-top.svg" style="margin-left: 16px; margin-top: 12px;"></div>
+    <div class="circle green" onclick="redirectToContact()" ><img src="./images/interrogation.svg" style="margin-left: 16px; margin-top: 12px;"></div> 
+    <script>
+        function redirectToContact() {
+    window.location.href = 'contact.html'; // Remplacez par l'URL réelle de votre page de contact
+}
+
+      function scrollToTop() {
+    window.scrollTo({
+        top: 0,         // Définit la position en haut de la page
+        behavior: 'smooth' // Définit un défilement fluide
+    });
+}
+const yellowCircle = document.querySelector('.circle.yellow');
+const greenCircle = document.querySelector('.circle.green');
+
+// Fonction pour gérer le scroll
+window.addEventListener('scroll', () => {
+    // Vérifie si on a suffisamment défilé (exemple : 300px)
+    if (window.scrollY > 50) {
+        yellowCircle.classList.add('show');
+        greenCircle.classList.add('show');
+    } else {
+        yellowCircle.classList.remove('show');
+        greenCircle.classList.remove('show');
+    }
+});
+
+    </script>
     <footer>
             © 2024 WikiCulture
             . Tous droits réservés. | <a href="#">Mentions légales</a> | <a href="#">Politique de confidentialité</a>

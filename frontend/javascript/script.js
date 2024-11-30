@@ -91,3 +91,4 @@ document.getElementById("addResourceForm").addEventListener("submit", function (
 
     document.getElementById("addResourceForm").reset();
 });
+

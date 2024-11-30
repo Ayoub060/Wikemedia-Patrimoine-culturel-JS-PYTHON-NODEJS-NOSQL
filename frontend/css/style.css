@@ -338,3 +338,41 @@ img {
 #voice-btn:hover {
     background-color: #0056b3;
 }
+
+
+    
+    .circle {
+        position: fixed;
+        bottom: 15%;
+        right: 20px;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: none; 
+        z-index: 1000;
+    }
+    
+    .circle.yellow {
+        background-color: #597f7f;
+        right: 90px; 
+    }
+    
+    .circle.green {
+        background-color: green;
+    }
+    
+    .circle.show {
+        display: block;
+        animation: fadeIn 0.5s ease-in-out;
+    }
+    
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
